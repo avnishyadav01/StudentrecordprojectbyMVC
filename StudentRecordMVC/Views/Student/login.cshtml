@@ -1,0 +1,25 @@
+﻿@model StudentRecordMVC.Models.adminmodel
+<h1>Login Page</h1>
+@using (Html.BeginForm("login", "Student", FormMethod.Post))
+{
+    @TempData["it"]
+    @TempData["po"]
+     <div>
+         <label>Enter Email id</label>
+         @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter Email here" })
+         @Html.ValidationMessageFor(m=>m.Email)
+         @TempData["xx"]
+     </div>
+     <div>
+         <label>Enter Password</label>
+         @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "ENter password here" })
+         @Html.ValidationMessageFor(m => m.Password)
+         @TempData["x"]
+     </div>
+     <br />
+     <button type="submit" class="btn btn-primary">Login</button>
+     <button type="reset" class="btn btn-danger">Reset</button>
+            }
+<a href="@Url.Action("ForgPass","Student")">Forget Password</a>
+<br />
+<a href="@Url.Action("signup","Student")">Signup</a>

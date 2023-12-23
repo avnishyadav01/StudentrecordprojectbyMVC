@@ -1,0 +1,145 @@
+﻿@model StudentRecordMVC.Models.StudentRecordModel
+@{
+    ViewBag.Title = "Addrecords";
+
+    if (Model.IsCpp == null)
+    {
+        Model.IsCpp = false;
+    }
+    if (Model.IsJava == null)
+    {
+        Model.IsJava = false;
+    }
+    if (Model.IsPython == null)
+    {
+        Model.IsPython = false;
+    }
+}
+
+
+<style>
+    .aass {
+        color: red
+    }
+</style>
+<h2>Addrecords</h2>
+
+@using (Html.BeginForm("Addrecords", "Student", FormMethod.Post))
+{@Html.HiddenFor(m => m.Id)
+<div>
+    <label>Enter Name</label>
+    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", data_rule_required = "true" })
+    @Html.ValidationMessageFor(m => m.Name, "", new { @Class = "aass" })
+</div>
+
+<div>
+    <label>Enter Age</label>
+    @Html.TextBoxFor(m => m.Age, new { @class = "form-control", data_rule_required = "true" })
+    @Html.ValidationMessageFor(m => m.Age, "", new { @Class = "aass" })
+
+</div>
+<div>
+    <label>Enter Email</label>
+    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", data_rule_required = "true", @placeholder = "Enter Email here " })
+    @Html.ValidationMessageFor(m => m.Email, "", new { @Class = "aass" })
+
+</div>
+<div>
+    <label>Enter Class</label>
+    @Html.TextBoxFor(m => m.Class, new { @class = "form-control", data_rule_required = "true", @placeholder = "Enter Class here " })
+    @Html.ValidationMessageFor(m => m.Class, "", new { @Class = "aass" })
+
+</div>
+<div>
+    <label>Enter Result</label>
+    Pass
+    @Html.RadioButtonFor(model => model.Result, "Pass")
+    Fail
+    @Html.RadioButtonFor(model => model.Result, "Fail")
+    @Html.ValidationMessageFor(m => m.Result, "", new { @Class = "aass" })
+
+</div>
+<div>
+    <label>Enter Date</label>
+    @Html.EditorFor(m => m.DOB, new { htmlAttributes = new { @class = "datepicker form-control" } })
+    @Html.ValidationMessageFor(m => m.DOB, "", new { @Class = "aass" })
+</div>
+<div>
+    <label>Branch</label>
+    @Html.DropDownListFor(m => m.Branch,
+            new SelectList(Enum.GetValues(typeof(StudentRecordMVC.Models.Branch))),
+            "Select Branch")
+    @Html.ValidationMessageFor(m => m.Branch, "", new { @Class = "aass" })
+</div>
+<div>
+    <label>Skill</label>
+    <label class="check-inline">
+        @Html.CheckBox("Java", Model.IsJava.Value)
+        Java
+    </label>
+    <label class="check-inline">
+        @Html.CheckBox("Python", Model.IsPython.Value)
+        Python
+    </label>
+    <label class="check-inline">
+        @Html.CheckBox("Cpp", Model.IsCpp.Value)
+        Cpp
+    </label>
+
+</div>
+<div>
+    <label>Enter Date of Admission</label>
+    @Html.EditorFor(m => m.DOA, new { htmlAttributes = new { @class = "datepicker form-control" } })
+    @Html.ValidationMessageFor(m => m.DOB, "", new { @Class = "aass" })
+
+</div>
+
+<br>
+<button input type="submit">Submit</button>
+<button input type="reset">Reset</button>
+}
+
+@section Scripts {
+
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui-1.13.2.min.js"></script>
+
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $('input[type=datetime]').datepicker({
+                    dateFormat: "dd/M/yy",
+                    changeMonth: true,
+                    changeYear: true,
+                    yearRange: "-60:+0"
+                });
+
+            });
+        </script>*@
+    <script>
+        $(document).ready(function () {
+            // Datepicker initialization for DOB and DOA
+            $('.datepicker').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "-60:+0"
+            });
+
+            // Validation logic
+            $('form').submit(function () {
+                var dobValue = new Date($('#DOB').val());
+                var doaValue = new Date($('#DOA').val());
+
+                if (doaValue <= dobValue) {
+                    // Display an error message
+                    alert('Date of Admission must be greater than Date of Birth');
+                    return false; // Prevent form submission
+                }
+
+                return true; // Allow form submission
+            });
+        });
+    </script>
+
+}
+

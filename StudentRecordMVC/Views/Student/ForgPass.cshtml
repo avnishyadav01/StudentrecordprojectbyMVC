@@ -1,0 +1,31 @@
+﻿
+@model StudentRecordMVC.Models.adminmodel
+<h2>Forget Password</h2>
+@using (Html.BeginForm("ForgPass", "Student", FormMethod.Post))
+{
+    <div class="form-group">
+        <label>Enter ID</label>
+        @Html.TextBoxFor(a => a.Id, new { @class = "form-control", @placeholder = "Enter ID" })
+        @Html.ValidationMessageFor(a => a.Id)
+        @ViewData["ii"]
+    </div>
+    <div class="form-group">
+        <label>Enter Email ID</label>
+        @Html.TextBoxFor(a => a.Email, new { @class = "form-control", @placeholder = "ENter email ID" })
+        @Html.ValidationMessageFor(a => a.Email)
+        @ViewData["ip"]
+    </div>
+    <div class="form-group">
+        <label>Enter new Passsowrd</label>
+        @Html.PasswordFor(a => a.Password, new { @class = "form-control", @placeholder = "ENter New Password" })
+        @Html.ValidationMessageFor(a => a.Password)
+    </div>
+    <div class="form-group">
+        <label>COnfirm Neew PAssword</label>
+        @Html.PasswordFor(a => a.Confirmpwd, new { @class = "form-control", @placeholder = "Confirm New Password" })
+        @Html.ValidationMessageFor(a => a.Confirmpwd)
+    </div>
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+
+}
